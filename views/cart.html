@@ -1,0 +1,219 @@
+<div class="mainmenu-area">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div> 
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li ><a href="/">Home</a></li>
+                        <li><a href="/products">Produtos</a></li>
+                        <li class="active"><a href="/cart">Carrinho</a></li>
+                        <li class="dropdown dropdown-small">
+                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" ><span class="key">Categorias</span><span > </span><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                {if="totalCategories() != 0 "}
+                                {include="categories-menu"}
+                                {else}
+                                Nenhuma Cadastrada
+                                {/if}
+                                </ul>
+                        </li>
+                         <li class="dropdown dropdown-small">
+                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Marcas</span><span class="value"> </span><b class="caret"></b></a>
+                                <ul class="dropdown-menu">                                 
+                                   {if="totalBrands() != 0 "}
+                                    {include="brands-menu"}
+                                    {else}
+                                    Nenhuma Cadastrada
+                                    {/if}
+                                </ul>
+                        </li>
+                    </ul>
+                </div>  
+            </div>
+        </div>
+    </div> <!-- End mainmenu area -->
+ <br>
+<div class="product-big-title-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="product-bit-title text-center">
+                    <h2><b>Carrinho de Compras</b></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <!-- End Page title area -->
+
+<div class="single-product-area">
+    <div class="zigzag-bottom"></div>
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-12">
+                <div class="product-content-right">
+                    <div class="woocommerce">
+
+                        <form action="/checkout">
+                            
+                            {if="$error != ''"}
+                            <div class="alert alert-danger" role="alert">
+                            {$error}
+                            </div>
+                            {/if}
+
+                             {if="$zipCodeSuccess == true && $cart.vlsubtotal != 0"}
+                                <div class="alert alert-success">
+                                <center>{$zipCodeSuccess}</center>
+                                </div>
+                            {/if}
+
+                            <table cellspacing="0" class="shop_table cart table-hover">
+                                <thead >
+                                    <tr>
+                                        <th class="product-remove">Remover </th>
+                                        <th class="product-thumbnail">foto</th>
+                                        <th class="product-name">Produto</th>
+                                        <th class="product-price">Preço</th>
+                                        <th class="product-quantity">Quantidade</th>
+                                        <th class="product-subtotal">Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {loop="$products"}
+                                    
+                                    <tr class="cart_item">
+                                        <td class="product-remove">
+                                            <form method="get"  >
+                                            <a style="color: red;"  title="Remover Produto" class="remove" href="/cart/{$value.idproduct}/remove"  ><i  class="fa fa-trash-o" aria-hidden="true"></i></a> 
+                                            </form>
+                                        </td>
+
+                                        <td class="product-thumbnail">
+                                            <a href="/products/{$value.desurl}"><img width="145" height="145" alt="poster_1_up" class="shop_thumbnail" src="{$value.desphoto}"></a>
+                                        </td>
+
+                                        <td class="product-name">
+                                            <a href="/products/{$value.desurl}">{$value.desproduct}</a><br>
+                                            <span style="font-size: 15px">{function="average($value.idproduct)"}</span>
+                                        </td>
+
+                                        <td class="product-price">
+                                            <span class="amount">R$ {function="formatPrice($value.vlprice)"}</span> 
+                                        </td>
+
+                                        <td class="product-quantity">
+                                            <div class="quantity buttons_added">
+                                                <input type="button" class="minus" value="-" onclick="window.location.href='/cart/{$value.idproduct}/minus'">
+                                                <input style="text-align: center;height: 30px;"type="text" size="2" class="input-text qty text" title="Qty" value="{$value.nrqtd}">
+                                                <input  type="button" class="plus" value="+" onclick="window.location.href='/cart/{$value.idproduct}/add'">
+                                            </div>
+                                        </td>
+
+                                        <td class="product-subtotal">
+                                            <span class="amount">{function="formatPrice($value.vltotal)"}</span> 
+                                        </td>
+                                    </tr>
+                                    {/loop}
+                                    
+                                </tbody>
+                            </table>
+
+                            <div class="cart-collaterals">
+
+                                <div class="cross-sells">
+
+                                    <h2 style="color: #2E2E2E;">Taxa do Frete</h2>
+                                    
+                                    <div class="coupon">
+                                        
+                                        {if="$cart.vlsubtotal == 0"}
+                                      
+                                        {else}
+                                        <select style="height: 35px;width: 200px;" name="vlfreight" id="vlfreight">
+                                            <option value="5">Distrito Federal</option>
+                                              <option value="8">Goías</option>
+                                          
+
+                                        </select>
+                                       
+                                        {/if}
+                                        <!-- sem botão -->
+                                        {if="$cart.vlsubtotal == 0"}
+
+                                        {else}
+                                        <input  type="submit" formmethod="post" formaction="/cart/freight" value="CALCULAR" class="button">
+                                        {/if}
+                                    </div>
+
+                                </div>
+
+                                <div class="cart_totals ">
+
+                                    <h2 style="color: #2E2E2E;">Resumo da Compra</h2>
+
+                                    <table cellspacing="0">
+                                        <tbody>
+                                            <tr class="cart-subtotal">
+                                                <th>Subtotal</th>
+                                                {if="$cart.vlsubtotal == 0"}
+                                                 <td><span class="amount">R$ 0,00</span></td>
+                                                 {else}
+                                                <td><span class="amount">R$ {function="formatPrice($cart.vlsubtotal)"}</span></td>
+                                                {/if}
+                                            </tr>
+
+                                            <tr class="shipping">
+                                                <th>Frete</th>
+                                                {if="$cart.vlsubtotal == 0"}
+                                                <td>R$ 0,00 <small>prazo de 0 dia(s)</small></td>
+                                                {elseif="$cart.vlfreight == 0"}
+                                                <td>R$ 0,00 <small>prazo de 0 dia(s)</small></td>
+                                                {else}
+                                                <td>R$ {function="formatPrice($cart.vlfreight)"} {if="$cart.nrdays > 0"}<small>prazo de {$cart.nrdays} dia(s)</small>{/if}</td>
+                                                {/if}
+                                            </tr>
+
+                                            <tr class="order-total">
+                                                <th>Total</th>
+                                                 {if="$cart.vlsubtotal == 0"}
+                                                 <td><strong><span class="amount">R$ 0,00</span></strong> </td>
+                                                 {else}
+                                                <td><strong><span class="amount">R$ {function="formatPrice($cart.vltotal)"}</span></strong> </td>
+                                                {/if}
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                            </div>
+
+                            <div class="pull-right">
+                                 {if="$cart.vlsubtotal == 0  "}
+                                 <!-- sem botão -->
+                              
+
+                                 <!-- sem botão -->
+                                 {else}
+                                  <input type="submit" value="Finalizar Compra" name="proceed" class="checkout-button button alt wc-forward">
+                                  {/if}
+
+
+
+                            </div>
+
+                        </form>
+
+                    </div>                        
+                </div>                    
+            </div>
+        </div>
+    </div>
+</div>

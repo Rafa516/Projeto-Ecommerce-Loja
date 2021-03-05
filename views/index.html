@@ -1,0 +1,164 @@
+  <div class="mainmenu-area">
+        <div class="container">
+            <div class="row">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                </div> 
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="/">Home</a></li>
+                        <li><a href="/products">Produtos</a></li>
+                        <li><a href="/cart">Carrinho</a></li>
+                        <li class="dropdown dropdown-small">
+                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Categorias</span><span > </span><b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                {if="totalCategories() != 0 "}
+                                {include="categories-menu"}
+                                {else}
+                                Nenhuma Cadastrada
+                                {/if}
+                          
+                                </ul>
+                        </li>
+                         <li class="dropdown dropdown-small">
+                                <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="key">Marcas</span><span class="value"> </span><b class="caret"></b></a>
+                                <ul class="dropdown-menu">                                 
+                                   {if="totalBrands() != 0 "}
+                                    {include="brands-menu"}
+                                    {else}
+                                    Nenhuma Cadastrada
+                                    {/if}
+                                </ul>
+                        </li>
+                    </ul>
+                </div>  
+            </div>
+        </div>
+    </div> <!-- End mainmenu area -->
+
+   
+    <br>
+  <div class="slider-area">
+        	<!-- Slider -->      
+			<div class="block-slider block-slider4"> 
+            <h2 class="section-title"><b>Destaques da semana</b></h2> 
+				<ul class="" id="bxslider-home4">
+                    {loop="$carousel"}
+					<li>
+                          
+						<img style="margin-left: 5%;  height: 35%;width: 35%;" src="{$value.desphoto}" alt="Slide">
+
+						<div class="caption-group">
+							<h4 class="caption title">
+								<b style="font-size: 22px;">{$value.desproduct}</b>
+							</h4>
+							<h4 style="font-size: 2em;"class="caption subtitle"><b>R$ {function="formatPrice($value.vlprice)"}</b></h4>
+                            <h5 style="font-size: 19px;"class="caption subtitle">{function="average($value.idproduct)"}</h5>
+							<a class="caption button-radius" href="/products/{$value.desurl}"><span class="icon"></span>Ver detalhes</a>
+                           
+						</div> 
+					</li>
+					{/loop}
+				</ul>  
+			</div>
+			<!-- ./Slider -->        
+    </div> <!-- End slider area -->  
+    <div class="promo-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo1">
+                        <i class="fa fa-refresh"></i>
+                        <p>1 ano de garantia</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo2">
+                        <i class="fa fa-truck"></i>
+                        <p>Frete mais barato</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo3">
+                        <i class="fa fa-lock"></i>
+                        <p>Pagamento seguro</p>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="single-promo promo4">
+                        <i class="fa fa-gift"></i>
+                        <p>Novos produtos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End promo area -->
+    
+    <div class="maincontent-area">
+        <div class="zigzag-bottom"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="latest-product">
+                        <b><h3 class="section-title">Produtos</b></h3></b> 
+
+                        <div class="product-carousel">
+                            {loop="$products"}
+                            <div class="single-product">
+                                <div class="product-f-image">
+                                    <img style="height: 18em;width: 20em;"src="{$value.desphoto}" class="products" >
+                                    <div class="product-hover">
+                                        <a href="/cart/{$value.idproduct}/add" class="add-to-cart-link"><i class="fa fa-cart-plus"></i>Comprar</a>
+                                  
+                                         <a href="/products/{$value.desurl}" class="view-details-link"><i class="fa fa-eye"></i>Ver detalhes</a> 
+                                    </div>
+                                </div> 
+
+                                <h2><a href="/products/{$value.desurl}">{$value.desproduct} </a></h2>
+
+                                
+                                    <div class="product-carousel-price">
+                                        <ins style="font-size: 16px">R$ {function="formatPrice($value.vlprice)"}</ins> 
+                                    </div>
+
+                                    {function="average($value.idproduct)"}
+                                </div> 
+                            {/loop} 
+
+                        </div>
+                      
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End main content area -->
+    
+    <div class="brands-area">
+        <div class="zigzag-bottom"></div>
+
+        <div class="container">
+
+            <div class="row">
+                <b><h2 style="color: black;"class="section-title"><b>Marcas</b></h2></b>
+                <div class="col-md-12">
+                    <div class="brand-wrapper">
+                        <div class="brand-list">
+                             {loop="$brands"}
+                            <a style="color: black; text-decoration: none;" href="/brand/{$value.idbrand}"><br><br><img class="brands" style="height: 10em;width: 15em;"src="{$value.desphoto}" alt="">  </a>
+                          
+                            {/loop} 
+
+                        </div>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> <!-- End brands area -->
+    <br>
