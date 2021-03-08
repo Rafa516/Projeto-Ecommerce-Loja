@@ -27,6 +27,7 @@
                     <input type="text" name="search" class="form-control pull-right" placeholder="Pesquisar" value="{$search}">
                     <div class="input-group-btn">
                       <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+
                     </div>
                   </div>
                 </form>
@@ -34,10 +35,11 @@
             </div>
 
             <div class="box-body no-padding">
+              <div class="table-responsive">
               <table class="table table-hover table-bordered">
                 <thead style="background-color: #D8D8D8">
                   <tr>
-                   
+                    <th><center>Código</th>
                     <th><center>Nome da Marca</th>
                     <th ><center>Vincular Marca no Produto</th>
                     <th ><center>Editar ou excluir</th>
@@ -46,6 +48,7 @@
                 <tbody>
                   {loop="$brands"}
                   <tr>
+                    <td><center>{$value.idbrand}</td>
                     <td><center>{$value.desbrand}</td>
                     </a></td>
                     <td><center><a href="/admin/brands/{$value.idbrand}/products" class="btn btn-info btn-xs"><i class="fa fa-arrows-h"></i> Vincular</a></td>
@@ -57,6 +60,7 @@
                   {/loop}
                 </tbody>
               </table>
+            </div>
             </div>
             <!-- /.box-body -->
              <div class="box-footer clearfix">

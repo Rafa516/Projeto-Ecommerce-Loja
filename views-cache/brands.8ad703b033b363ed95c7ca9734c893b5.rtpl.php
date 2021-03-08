@@ -27,6 +27,7 @@
                     <input type="text" name="search" class="form-control pull-right" placeholder="Pesquisar" value="<?php echo $search; ?>">
                     <div class="input-group-btn">
                       <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+
                     </div>
                   </div>
                 </form>
@@ -34,10 +35,11 @@
             </div>
 
             <div class="box-body no-padding">
+              <div class="table-responsive">
               <table class="table table-hover table-bordered">
                 <thead style="background-color: #D8D8D8">
                   <tr>
-                   
+                    <th><center>Código</th>
                     <th><center>Nome da Marca</th>
                     <th ><center>Vincular Marca no Produto</th>
                     <th ><center>Editar ou excluir</th>
@@ -47,6 +49,7 @@
                   <?php $counter1=-1;  if( isset($brands) && ( is_array($brands) || $brands instanceof Traversable ) && sizeof($brands) ) foreach( $brands as $key1 => $value1 ){ $counter1++; ?>
 
                   <tr>
+                    <td><center><?php echo $value1["idbrand"]; ?></td>
                     <td><center><?php echo $value1["desbrand"]; ?></td>
                     </a></td>
                     <td><center><a href="/admin/brands/<?php echo $value1["idbrand"]; ?>/products" class="btn btn-info btn-xs"><i class="fa fa-arrows-h"></i> Vincular</a></td>
@@ -59,6 +62,7 @@
 
                 </tbody>
               </table>
+            </div>
             </div>
             <!-- /.box-body -->
              <div class="box-footer clearfix">

@@ -570,7 +570,7 @@ class User extends Model {
 			SELECT SQL_CALC_FOUND_ROWS *
 			FROM tb_users a 
 			INNER JOIN tb_persons b USING(idperson)
-			WHERE b.desperson LIKE :search OR b.desemail = :search OR a.deslogin LIKE :search
+			WHERE b.desperson LIKE :search OR b.desemail = :search OR a.deslogin LIKE :search  OR iduser LIKE :search 
 			ORDER BY b.desperson
 			LIMIT $start, $itemsPerPage;
 		", [
@@ -586,6 +586,44 @@ class User extends Model {
 		];
 
 	} 
+
+	public function getOrders()
+	{
+
+		$sql = new Sql();
+
+		$results = $sql->select("
+			SELECT * 
+			FROM tb_orders a 
+			INNER JOIN tb_ordersstatus b USING(idstatus) 
+			INNER JOIN tb_carts c USING(idcart)
+			INNER JOIN tb_users d ON d.iduser = a.iduser
+			INNER JOIN tb_addresses e USING(idaddress)
+			INNER JOIN tb_persons f ON f.idperson = d.idperson
+			WHERE a.iduser = :iduser
+		", [
+			':iduser'=>$this->getiduser()
+		]);
+
+		return $results;
+
+	}
+
+	public function getAvaliactions()
+	{
+
+		$sql = new Sql();
+
+		return $sql->select("
+			SELECT * FROM tb_avaliactions WHERE iduser = :iduser ORDER BY dtregister desc 
+		", [
+
+			':iduser'=>$this->getiduser()
+		]);
+
+	
+	}
+
 
 	
 }

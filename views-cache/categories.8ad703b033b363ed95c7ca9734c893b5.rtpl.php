@@ -34,10 +34,11 @@
             </div>
 
             <div class="box-body no-padding">
+              <div class="table-responsive">
               <table class="table table-hover table-bordered">
                 <thead style="background-color: #D8D8D8">
                   <tr>
-                   
+                    <th><center>Código</th>
                     <th><center>Nome da Categoria</th>
                     <th ><center>Vincular Categoria no Produto</th>
                     <th ><center>Editar ou excluir</th>
@@ -47,6 +48,7 @@
                   <?php $counter1=-1;  if( isset($categories) && ( is_array($categories) || $categories instanceof Traversable ) && sizeof($categories) ) foreach( $categories as $key1 => $value1 ){ $counter1++; ?>
 
                   <tr>
+                    <td><center><?php echo $value1["idcategory"]; ?></td>
                     <td><center><?php echo $value1["descategory"]; ?></td>
                      <td><center><a href="/admin/categories/<?php echo $value1["idcategory"]; ?>/products" class="btn btn-info btn-xs"><i class="fa fa-arrows-h"></i> Vincular</a></td>
                     <td>
@@ -59,6 +61,7 @@
 
                 </tbody>
               </table>
+            </div>
             </div>
             <!-- /.box-body -->
              <div class="box-footer clearfix">

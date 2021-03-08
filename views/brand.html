@@ -37,6 +37,16 @@
                         </ul>
                     </li>
                 </ul>
+
+                  <form action="/products" method="get" >
+                        <div class="input-group" style="padding-top: 12px;">
+                          <input  type="text" name="search"  class="form-control" placeholder="Pesquisar...">
+                              <span  class="input-group-btn">
+                                <button  style="height: 32px;"type="submit"  id="search-btn"  ><i class="fa fa-search"style="font-size:13px;" > PESQUISAR</i>
+                                </button>
+                              </span>
+                        </div>
+                      </form>
             </div>
         </div>
     </div>
@@ -128,11 +138,11 @@
             <div class="col-md-3 col-sm-6">
                 <div class="single-shop-product">
                     <div class="product-upper">
-                        <img src="{$value.desphoto}" class="products" alt="">
+                        <a href="/products/{$value.desurl}"> <img src="{$value.desphoto}" class="products"alt=""></a>
                     </div>
-                    <h2><a href="/products/{$value.desurl}">{$value.desproduct}</a></h2>
+                    <h2><a style="color: #1C1C1C;text-decoration: none;" href="/products/{$value.desurl}">{$value.desproduct}</a></h2>
                     <div class="product-carousel-price">
-                        <ins>R$ {function="formatPrice($value.vlprice)"}</ins><br>
+                        <ins style="color: #688A08;font-size: 20px;">R$ {function="formatPrice($value.vlprice)"}</ins><br>
 
                         <ins style="font-size: 13px;">{function="average($value.idproduct)"}</ins>
                     </div>
@@ -143,40 +153,36 @@
                     </div>
                 </div>
             </div>
+             {else}
+                 <div class="alert alert-info">
+                 <b>Nenhum produto nessa marca</b>
+                 </div>
             {/loop}
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <div class="product-pagination text-center">
-                    <nav>
-                        <ul class="pagination">
+                   <div class="pagination">
+                         {if="$numPage > 1"} 
+                       
+                            <a href="/brand/{$brand.idbrand}?page={$back}" aria-label="Previous">&laquo;</a>                       
+                        {/if}
 
-
-                            <li>
-                                <a href="" aria-label="Previous">
-                                    <span aria-hidden="true">«</span>
-                                </a>
-
-                            </li>
-                            {loop="$pages"}
-                            {if="$pageName == $value.link"}
-                            <li class="active"><a href="{$value.link}">{$value.page}</a></li>
-                            {else}
-                            <li><a href="{$value.link}">{$value.page}</a></li>
-                            {/if}
-                            {/loop}
-                            <li>
-
-                                <a href="" aria-label="Next">
-                                    <span aria-hidden="true">»</span>
-                                </a>
-
-                            </li>
-
-
-                        </ul>
-                    </nav>
+                         {loop="$pages"}
+                          {if="$pageName == $value.link"} 
+                        <a class="active"href="{$value.link}">{$value.page}</a>
+                        {else}
+                        <a href="{$value.link}">{$value.page}</a>
+                          {/if}
+                        {/loop}
+                     
+                      
+                         {if="$numPage < $totalPage"} 
+                       
+                             <a href="/brand/{$brand.idbrand}?page={$next}" aria-label="Previous">&raquo;</a>                      
+                        {/if}
+                    </div>        
                 </div>
             </div>
         </div>

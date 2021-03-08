@@ -9,9 +9,7 @@
                         <p><i style="color: white"  class="fa fa-map-marker"></i> SCRN 704/705 BL H, - Asa Norte - Brasília, DF - CEP: 70730-680.</p>
                         <p><i style="color: white"  class="fa fa-phone"></i> (61) 3032-1335</p>
                         <div class="footer-social">
-                            <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-                            <a href="#" target="_blank"><i class="fa fa-youtube"></i></a>
+                            <a href="https://www.facebook.com/papelariaja" target="_blank"><i class="fa fa-facebook"></i></a>
                         </div>
                     </div>
                 </div>
@@ -22,7 +20,8 @@
                         <ul>
                             {if="checkLogin(false)"}
                             <li><a href="/profile">Minha Conta</a></li>
-                            <li><a href="#">Meus Pedidos</a></li>
+                            <li><a href="/profile/orders">Meus Pedidos</a></li>
+                            <li><a href="/profile-avaliactions">Minhas Avaliações</a></li>
                             {else}
                              <li><a href="/login">Login</a></li>
                             {/if}

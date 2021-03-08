@@ -2,7 +2,7 @@
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
-   <center><img class="logo"src="<?php echo $dir_url; ?>/../res/admin/dist/img/logo.png"></center>
+    <center><img  height="70" whidth="100"src="<?php echo $dir_url; ?>/../res/admin/dist/img/logo1.png"></center>
   <h1>
     Lista de Produtos
   </h1>

@@ -43,6 +43,15 @@
                                 </ul>
                         </li>
                     </ul>
+                      <form action="/products" method="get" >
+                        <div class="input-group" style="padding-top: 12px;">
+                          <input  type="text" name="search"  class="form-control" placeholder="Pesquisar...">
+                              <span  class="input-group-btn">
+                                <button  style="height: 32px;"type="submit"  id="search-btn"  ><i class="fa fa-search"style="font-size:13px;" > PESQUISAR</i>
+                                </button>
+                              </span>
+                        </div>
+                      </form>
                 </div>  
             </div>
         </div>
@@ -87,7 +96,7 @@
                                 </div>
                             <?php } ?>
 
-
+                           <div class="table-responsive">
                             <table cellspacing="0" class="shop_table cart table-hover">
                                 <thead >
                                     <tr>
@@ -135,17 +144,23 @@
                                             <span class="amount"><?php echo formatPrice($value1["vltotal"]); ?></span> 
                                         </td>
                                     </tr>
+                                    <?php }else{ ?>
+
+                                    <div class="alert alert-info">
+                                       <b>Nenhum produto no carrinho</b>.
+                                    </div>
                                     <?php } ?>
 
                                     
                                 </tbody>
                             </table>
+                        </div>
 
                             <div class="cart-collaterals">
 
                                 <div class="cross-sells">
 
-                                    <h2 style="color: #2E2E2E;">Taxa do Frete</h2>
+                                  
                                     
                                     <div class="coupon">
                                         
@@ -153,6 +168,8 @@
 
                                       
                                         <?php }else{ ?>
+
+                                         <h2 style="color: #2E2E2E;">Taxa do Frete</h2>
 
                                         <select style="height: 35px;width: 200px;" name="vlfreight" id="vlfreight">
                                             <option value="5">Distrito Federal</option>

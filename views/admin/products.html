@@ -34,10 +34,11 @@
             </div>
 
             <div class="box-body no-padding">
+              <div class="table-responsive">
              <table class="table  table-hover table-bordered">
                  <thead style="background-color: #D8D8D8" >
                   <tr>
-                    
+                    <th ><center>Código</th>
                    <th ><center>Nome do Produto</th>
                     <th><center>Preço</th>
                  
@@ -50,7 +51,7 @@
                 <tbody>
                   {loop="$products"}
                   <tr>
-                   
+                    <td><center>{$value.idproduct}</td>
                     <td>{$value.desproduct}</td>
                     <td><center>R$ {$value.vlprice}</td>
                
@@ -68,6 +69,7 @@
                   {/loop}
                 </tbody>
               </table>
+            </div>
             </div>
             <!-- /.box-body -->
               <div class="box-footer clearfix">

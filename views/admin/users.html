@@ -34,10 +34,11 @@
             </div>
 
             <div class="box-body no-padding">
+               <div class="table-responsive">
               <table class="table table-hover  table-bordered">
                 <thead style="background-color: #D8D8D8">
                   <tr >
-                
+                    <th><center>Código</th>
                     <th><center>Nome</th>
                     <th><center>E-mail</th>
                     <th><center>Login</th>
@@ -48,7 +49,7 @@
                 <tbody>
                   {loop="$users"}
                   <tr>
-                    
+                    <td><center>{$value.iduser}</td>
                     <td><center>{$value.desperson}</td>
                     <td><center>  {$value.desemail}</td>
                     <td><center>{$value.deslogin}</td/>
@@ -67,6 +68,7 @@
                   {/loop}
                 </tbody>
               </table>
+            </div>
             </div>
             <!-- /.box-body -->
               <div class="box-footer clearfix">

@@ -45,6 +45,16 @@
                         </ul>
                     </li>
                 </ul>
+
+                  <form action="/products" method="get" >
+                        <div class="input-group" style="padding-top: 12px;">
+                          <input  type="text" name="search"  class="form-control" placeholder="Pesquisar...">
+                              <span  class="input-group-btn">
+                                <button  style="height: 32px;"type="submit"  id="search-btn"  ><i class="fa fa-search"style="font-size:13px;" > PESQUISAR</i>
+                                </button>
+                              </span>
+                        </div>
+                      </form>
             </div>
         </div>
     </div>
@@ -143,11 +153,11 @@
             <div class="col-md-3 col-sm-6">
                 <div class="single-shop-product">
                     <div class="product-upper">
-                        <img src="<?php echo $value1["desphoto"]; ?>" class="products" alt="">
+                        <a href="/products/<?php echo $value1["desurl"]; ?>"> <img src="<?php echo $value1["desphoto"]; ?>" class="products"alt=""></a>
                     </div>
-                    <h2><a href="/products/<?php echo $value1["desurl"]; ?>"><?php echo $value1["desproduct"]; ?></a></h2>
+                    <h2><a style="color: #1C1C1C;text-decoration: none;" href="/products/<?php echo $value1["desurl"]; ?>"><?php echo $value1["desproduct"]; ?></a></h2>
                     <div class="product-carousel-price">
-                        <ins>R$ <?php echo formatPrice($value1["vlprice"]); ?></ins><br>
+                        <ins style="color: #688A08;font-size: 20px;">R$ <?php echo formatPrice($value1["vlprice"]); ?></ins><br>
 
                         <ins style="font-size: 13px;"><?php echo average($value1["idproduct"]); ?></ins>
                     </div>
@@ -158,6 +168,11 @@
                     </div>
                 </div>
             </div>
+             <?php }else{ ?>
+
+                 <div class="alert alert-info">
+                 <b>Nenhum produto nessa marca</b>
+                 </div>
             <?php } ?>
 
         </div>
@@ -165,39 +180,32 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="product-pagination text-center">
-                    <nav>
-                        <ul class="pagination">
+                   <div class="pagination">
+                         <?php if( $numPage > 1 ){ ?> 
+                       
+                            <a href="/brand/<?php echo $brand["idbrand"]; ?>?page=<?php echo $back; ?>" aria-label="Previous">&laquo;</a>                       
+                        <?php } ?>
 
 
-                            <li>
-                                <a href="" aria-label="Previous">
-                                    <span aria-hidden="true">«</span>
-                                </a>
+                         <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
 
-                            </li>
-                            <?php $counter1=-1;  if( isset($pages) && ( is_array($pages) || $pages instanceof Traversable ) && sizeof($pages) ) foreach( $pages as $key1 => $value1 ){ $counter1++; ?>
+                          <?php if( $pageName == $value1["link"] ){ ?> 
+                        <a class="active"href="<?php echo $value1["link"]; ?>"><?php echo $value1["page"]; ?></a>
+                        <?php }else{ ?>
 
-                            <?php if( $pageName == $value1["link"] ){ ?>
+                        <a href="<?php echo $value1["link"]; ?>"><?php echo $value1["page"]; ?></a>
+                          <?php } ?>
 
-                            <li class="active"><a href="<?php echo $value1["link"]; ?>"><?php echo $value1["page"]; ?></a></li>
-                            <?php }else{ ?>
+                        <?php } ?>
 
-                            <li><a href="<?php echo $value1["link"]; ?>"><?php echo $value1["page"]; ?></a></li>
-                            <?php } ?>
+                     
+                      
+                         <?php if( $numPage < $totalPage ){ ?> 
+                       
+                             <a href="/brand/<?php echo $brand["idbrand"]; ?>?page=<?php echo $next; ?>" aria-label="Previous">&raquo;</a>                      
+                        <?php } ?>
 
-                            <?php } ?>
-
-                            <li>
-
-                                <a href="" aria-label="Next">
-                                    <span aria-hidden="true">»</span>
-                                </a>
-
-                            </li>
-
-
-                        </ul>
-                    </nav>
+                    </div>        
                 </div>
             </div>
         </div>

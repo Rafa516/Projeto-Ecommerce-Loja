@@ -36,7 +36,10 @@
 
                 </div>
                 <?php } ?> 
-                  <b><h4  style="color: black;font-size: 2.5em;"class="section-title">Minhas Avaliações</h4></b>               
+                  <div class="cart-collaterals">
+                    <h2 style="color: black">Minhas Avaliações</h2>
+                </div>
+                <div class="table-responsive">              
                 <table cellspacing="0" class="shop_table cart table-hover">
                                 <thead >
                                     <tr>
@@ -53,7 +56,7 @@
 
                                     
                                     <tr>
-                                        <td class="product-name">
+                                        <td >
                                             
                                             <span ><a   href="/products/<?php echo $value1["desurl"]; ?>"><?php echo $value1["desproduct"]; ?></a></span><br>
                                              <span style="font-size: 15px"><?php echo average($value1["idproduct"]); ?></span>
@@ -111,11 +114,17 @@
                                             </form>
                                         </td>                                      
                                     </tr>
+                                    <?php }else{ ?>
+
+                                    <div class="alert alert-info">
+                                       Nenhuma avaliação realizada.
+                                    </div>
                                     <?php } ?>
 
                                     
                                 </tbody>
                             </table>
+                        </div>
             </div>
         </div>
     </div>

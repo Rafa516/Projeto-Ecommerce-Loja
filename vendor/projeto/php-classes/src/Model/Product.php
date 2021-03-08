@@ -311,8 +311,60 @@ class Product extends Model {
 		]);
 
 	}
+// Paginação e busca da área administrativa
+	public static function getPage($page = 1, $itemsPerPage = 8)
+	{
 
-	public static function getPage($page = 1, $itemsPerPage = 1)
+		$start = ($page - 1) * $itemsPerPage;
+
+		$sql = new Sql();
+
+		$results = $sql->select("
+			SELECT SQL_CALC_FOUND_ROWS *
+			FROM tb_products 
+			ORDER BY idproduct
+			LIMIT $start, $itemsPerPage;
+		");
+
+		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+
+		return [
+			'data'=>$results,
+			'total'=>(int)$resultTotal[0]["nrtotal"],
+			'pages'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+		];
+
+	}
+// Paginação e busca da área administrativa
+	public static function getPageSearch($search, $page = 1, $itemsPerPage = 20)
+	{
+
+		$start = ($page - 1) * $itemsPerPage;
+
+		$sql = new Sql();
+
+		$results = $sql->select("
+			SELECT SQL_CALC_FOUND_ROWS *
+			FROM tb_products 
+			WHERE desproduct LIKE :search  OR vlprice LIKE :search OR idproduct LIKE :search
+			ORDER BY idproduct
+			LIMIT $start, $itemsPerPage;
+		", [
+			':search'=>'%'.$search.'%'
+		]);
+
+		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+
+		return [
+			'data'=>$results,
+			'total'=>(int)$resultTotal[0]["nrtotal"],
+			'pages'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
+		];
+
+	}
+
+
+	public static function getProductsPage($page = 1, $itemsPerPage = 12)
 	{
 
 		$start = ($page - 1) * $itemsPerPage;
@@ -329,25 +381,25 @@ class Product extends Model {
 		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
 
 		return [
-			'data'=>$results,
+			'data'=>Product::checkList($results),
 			'total'=>(int)$resultTotal[0]["nrtotal"],
 			'pages'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
 		];
 
 	}
 
-	public static function getPageSearch($search, $page = 1, $itemsPerPage = 10)
+	public static function getSearch($search, $page = 1, $itemsPerPage = 12)
 	{
 
-		$start = ($page - 1) * $itemsPerPage;
-
 		$sql = new Sql();
+
+		$start = ($page - 1) * $itemsPerPage;
 
 		$results = $sql->select("
 			SELECT SQL_CALC_FOUND_ROWS *
 			FROM tb_products 
-			WHERE desproduct LIKE :search
-			ORDER BY desproduct
+			WHERE desproduct LIKE :search  OR vlprice LIKE :search OR idproduct LIKE :search
+			ORDER BY idproduct;
 			LIMIT $start, $itemsPerPage;
 		", [
 			':search'=>'%'.$search.'%'
@@ -356,12 +408,15 @@ class Product extends Model {
 		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
 
 		return [
-			'data'=>$results,
+			'data'=>Product::checkList($results),
 			'total'=>(int)$resultTotal[0]["nrtotal"],
 			'pages'=>ceil($resultTotal[0]["nrtotal"] / $itemsPerPage)
 		];
 
 	}
+
+
+
 
 	public function getProductsCarousel($related = true)
 	{
@@ -397,6 +452,7 @@ class Product extends Model {
 
 	}
 
+	
 
 	public function getCarousel($idcarousel)
 	{

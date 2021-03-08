@@ -9,7 +9,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ADM | J.A</title>
+  <title>Papelaria e Livraria J.A</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
@@ -168,7 +168,7 @@ desired effect
 
     <!-- sidebar: style can be found in sidebar.less -->
     <section class="sidebar">
-
+      <br>
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel">
         <div class="pull-left image">
@@ -184,17 +184,10 @@ desired effect
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
+      <br>
 
       <!-- search form (Optional) -->
-      <form action="#" method="get" class="sidebar-form">
-        <div class="input-group">
-          <input type="text" name="q" class="form-control" placeholder="Buscar...">
-              <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-                </button>
-              </span>
-        </div>
-      </form>
+    
       <!-- /.search form -->
 
       <!-- Sidebar Menu -->
@@ -206,6 +199,7 @@ desired effect
         <li><a href="/admin/categories"><i class="fa fa-list"></i> <span>Categorias</span></a></li>
         <li><a href="/admin/products"><i class="fa fa-shopping-cart"></i> <span>Produtos</span></a></li>
         <li><a href="/admin/brands"><i class="fa fa-copyright"></i> <span>Marcas</span></a></li>
+        <li><a href="/admin/orders"><i class="fa fa-truck"></i> <span>Pedidos</span></a></li>
         <li><a href="/admin/reviews"><i class="fa fa-comments-o"></i> <span>Avaliações</span></a></li>
 
         <li class="treeview">

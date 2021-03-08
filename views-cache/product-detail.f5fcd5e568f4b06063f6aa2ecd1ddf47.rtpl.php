@@ -45,6 +45,16 @@
                         </ul>
                     </li>
                 </ul>
+
+                   <form action="/products" method="get" >
+                        <div class="input-group" style="padding-top: 12px;">
+                          <input  type="text" name="search"  class="form-control" placeholder="Pesquisar...">
+                              <span  class="input-group-btn">
+                                <button  style="height: 32px;"type="submit"  id="search-btn"  ><i class="fa fa-search"style="font-size:13px;" > PESQUISAR</i>
+                                </button>
+                              </span>
+                        </div>
+                      </form>
             </div>
         </div>
     </div>
@@ -88,7 +98,7 @@
                             <div class="product-inner">
                                 <h2 class="product-name"><?php echo $product["desproduct"]; ?></h2>
                                 <div class="product-inner-price">
-                                    <h3><b>R$ <?php echo formatPrice($product["vlprice"]); ?></b></h3>
+                                    <h3><b style="color: #688A08;">R$ <?php echo formatPrice($product["vlprice"]); ?></b></h3>
                                 </div>
 
                                 <form action="/cart/<?php echo $product["idproduct"]; ?>/add" class="cart">
@@ -103,7 +113,7 @@
                                 <?php }else{ ?>
 
                                 <b style="font-size: 16px"><?php echo average($product["idproduct"]); ?></b>
-                                &nbsp;&nbsp;&nbsp;<b style="font-size: 16px"><i class="fa fa-comments-o"></i>
+                                &nbsp;&nbsp;&nbsp;<b style="font-size: 16px">   <i class="fa fa-comments-o"></i>
                                     <?php echo $total["avaliactions"]; ?></b>
                                 <?php } ?>
 

@@ -4,7 +4,7 @@
 <section class="content-header">
    <center><img  height="70" whidth="100"src="<?php echo $dir_url; ?>/../res/admin/dist/img/logo1.png"></center>
   <h1>
-    Lista de Produtos
+    Produto
   </h1>
   <ol class="breadcrumb">
     <li><a href="/admin"><i class="fa fa-home"></i> Home</a></li>
@@ -33,6 +33,11 @@
             <div class="form-group">
               <label for="vlprice">Preço</label>
               <input type="number" class="form-control" id="vlprice" name="vlprice" step="0.01" placeholder="0.00" value="<?php echo $product["vlprice"]; ?>">
+            </div>
+
+             <div class="form-group">
+              <label for="vlprice">URL</label>
+               <input type="text" class="form-control" id="desurl" name="desurl" value="<?php echo $product["desurl"]; ?>">
             </div>
         
 

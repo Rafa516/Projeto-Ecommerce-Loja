@@ -338,7 +338,7 @@ class Brand extends Model {
 
 	}
 
-	public function getProductsPage($page = 1, $itemsPerPage = 8)
+	public function getProductsPage($page = 1, $itemsPerPage = 12)
 	{
 
 		$start = ($page - 1) * $itemsPerPage;
@@ -376,7 +376,7 @@ class Brand extends Model {
 		$results = $sql->select("
 			SELECT SQL_CALC_FOUND_ROWS *
 			FROM tb_brands 
-			ORDER BY desbrand
+			ORDER BY idbrand
 			LIMIT $start, $itemsPerPage;
 		");
 
@@ -400,8 +400,8 @@ class Brand extends Model {
 		$results = $sql->select("
 			SELECT SQL_CALC_FOUND_ROWS *
 			FROM tb_brands 
-			WHERE desbrand LIKE :search
-			ORDER BY desbrand
+			WHERE desbrand LIKE :search  OR idbrand LIKE :search
+			ORDER BY idbrand
 			LIMIT $start, $itemsPerPage;
 		", [
 			':search'=>'%'.$search.'%'

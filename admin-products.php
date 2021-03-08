@@ -276,16 +276,44 @@ $app->get("/admin/carousel/:idcarousel/products/:idproduct/remove", function($id
 
 $app->get("/admin/reviews", function(){
 
+	
 	User::verifyLogin();
 
-	$avaliaction = Avaliaction::listAllAvaliactions();
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+
+	if ($search != '') {
+
+		$pagination = Avaliaction::getPageSearch($search, $page);
+
+	} else {
+
+		$pagination = Avaliaction::getPage($page);
+
+	}
+
+	$pages = [];
+
+	for ($x = 0; $x < $pagination['pages']; $x++)
+	{
+
+		array_push($pages, [
+			'href'=>'/admin/reviews?'.http_build_query([
+				'page'=>$x+1,
+				'search'=>$search
+			]),
+			'text'=>$x+1
+		]);
+
+	}
 
 	$page = new PageAdmin();
 
-
 	$page->setTpl("reviews", [
-		"products"=>$avaliaction
-	]);
+		"products"=>$pagination['data'],
+		"search"=>$search,
+		"pages"=>$pages
+	]);	
 
 
 });

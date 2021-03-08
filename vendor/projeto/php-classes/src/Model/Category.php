@@ -124,7 +124,7 @@ class Category extends Model {
 
 	
 
-	public function getProductsPage($page = 1, $itemsPerPage = 8)
+	public function getProductsPage($page = 1, $itemsPerPage = 12)
 	{
 
 		$start = ($page - 1) * $itemsPerPage;
@@ -186,7 +186,7 @@ class Category extends Model {
 		$results = $sql->select("
 			SELECT SQL_CALC_FOUND_ROWS *
 			FROM tb_categories 
-			ORDER BY descategory
+			ORDER BY idcategory
 			LIMIT $start, $itemsPerPage;
 		");
 
@@ -210,8 +210,8 @@ class Category extends Model {
 		$results = $sql->select("
 			SELECT SQL_CALC_FOUND_ROWS *
 			FROM tb_categories 
-			WHERE descategory LIKE :search
-			ORDER BY descategory
+			WHERE descategory LIKE :search OR idcategory LIKE :search
+			ORDER BY idcategory
 			LIMIT $start, $itemsPerPage;
 		", [
 			':search'=>'%'.$search.'%'

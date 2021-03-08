@@ -34,10 +34,11 @@
             </div>
 
             <div class="box-body no-padding">
+              <div class="table-responsive">
               <table class="table table-hover table-bordered">
                 <thead style="background-color: #D8D8D8">
                   <tr>
-                   
+                    <th><center>Código</th>
                     <th><center>Nome da Categoria</th>
                     <th ><center>Vincular Categoria no Produto</th>
                     <th ><center>Editar ou excluir</th>
@@ -46,6 +47,7 @@
                 <tbody>
                   {loop="$categories"}
                   <tr>
+                    <td><center>{$value.idcategory}</td>
                     <td><center>{$value.descategory}</td>
                      <td><center><a href="/admin/categories/{$value.idcategory}/products" class="btn btn-info btn-xs"><i class="fa fa-arrows-h"></i> Vincular</a></td>
                     <td>
@@ -57,6 +59,7 @@
                   {/loop}
                 </tbody>
               </table>
+            </div>
             </div>
             <!-- /.box-body -->
              <div class="box-footer clearfix">

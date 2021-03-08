@@ -145,6 +145,18 @@ class Order extends Model {
 
 	}
 
+
+	public static function total()
+	{
+		
+		$sql = new Sql();
+		$total = $sql->select("SELECT SQL_CALC_FOUND_ROWS *
+			FROM tb_orders");
+		$resultTotal = $sql->select("SELECT FOUND_ROWS() AS nrtotal;");
+	  
+		return ['ordersTotal'=>(int)$resultTotal[0]["nrtotal"]];
+	}
+
 	public static function getPage($page = 1, $itemsPerPage = 10)
 	{
 
@@ -188,8 +200,8 @@ class Order extends Model {
 			INNER JOIN tb_carts c USING(idcart)
 			INNER JOIN tb_users d ON d.iduser = a.iduser
 			INNER JOIN tb_addresses e USING(idaddress)
-			INNER JOIN tb_persons f ON f.idperson = d.idperson
-			WHERE a.idorder = :id OR f.desperson LIKE :search
+			INNER JOIN tb_persons f ON f.idperson = d.idperson 
+			WHERE a.idorder = :id OR f.desperson LIKE :search OR b.desstatus LIKE :search OR a.vltotal LIKE :search OR c.vlfreight LIKE :search
 			ORDER BY a.dtregister DESC
 			LIMIT $start, $itemsPerPage;
 		", [

@@ -37,6 +37,16 @@
                         </ul>
                     </li>
                 </ul>
+
+                   <form action="/products" method="get" >
+                        <div class="input-group" style="padding-top: 12px;">
+                          <input  type="text" name="search"  class="form-control" placeholder="Pesquisar...">
+                              <span  class="input-group-btn">
+                                <button  style="height: 32px;"type="submit"  id="search-btn"  ><i class="fa fa-search"style="font-size:13px;" > PESQUISAR</i>
+                                </button>
+                              </span>
+                        </div>
+                      </form>
             </div>
         </div>
     </div>
@@ -78,7 +88,7 @@
                             <div class="product-inner">
                                 <h2 class="product-name">{$product.desproduct}</h2>
                                 <div class="product-inner-price">
-                                    <h3><b>R$ {function="formatPrice($product.vlprice)"}</b></h3>
+                                    <h3><b style="color: #688A08;">R$ {function="formatPrice($product.vlprice)"}</b></h3>
                                 </div>
 
                                 <form action="/cart/{$product.idproduct}/add" class="cart">
@@ -91,7 +101,7 @@
                                 &nbsp;<b style="font-size: 15px"> Produto não avaliado</b>
                                 {else}
                                 <b style="font-size: 16px">{function="average($product.idproduct)"}</b>
-                                &nbsp;&nbsp;&nbsp;<b style="font-size: 16px"><i class="fa fa-comments-o"></i>
+                                &nbsp;&nbsp;&nbsp;<b style="font-size: 16px">   <i class="fa fa-comments-o"></i>
                                     {$total.avaliactions}</b>
                                 {/if}
                                 <div class="product-inner-category">

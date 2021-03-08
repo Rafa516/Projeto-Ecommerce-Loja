@@ -26,10 +26,13 @@ $app->get('/', function() {
 	$page = new Page(); 
 
 
+
+
 	$page->setTpl("index",[						  
 		"products"=>Product::checkList($products), 
 		"carousel"=>Product::checkList($carousel),
 		"brands"=>Brand::checkList($brands)
+	
 	]);
 
 });
@@ -38,13 +41,13 @@ $app->get('/', function() {
 
 $app->get("/categories/:idcategory", function($idcategory){
 
-	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$numPage = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 	$category = new Category();
 
 	$category->get((int)$idcategory);
 
-	$pagination = $category->getProductsPage($page);
+	$pagination = $category->getProductsPage($numPage);
 
 	$pages = [];
 
@@ -54,6 +57,10 @@ $app->get("/categories/:idcategory", function($idcategory){
 			'page'=>$i
 		]);
 	}
+
+	$back  = $numPage - 1;	
+
+	$next = $numPage + 1;
 	
 	$page = new Page();
 
@@ -61,7 +68,11 @@ $app->get("/categories/:idcategory", function($idcategory){
 		'category'=>$category->getValues(),
 		'products'=>Product::checkList($category->getProducts()),
 		'products'=>$pagination["data"],
-		'pages'=>$pages
+		'pages'=>$pages,
+		'back'=>$back,
+		'next'=>$next,
+		'totalPage'=>$pagination['pages'],
+		"numPage"=>$numPage
 	]);
 
 });
@@ -70,7 +81,7 @@ $app->get("/categories/:idcategory", function($idcategory){
 
 $app->get("/brand/:idbrand", function($idbrand){
 
-	$page = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	$numPage = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
 
 	$brand = new Brand();
 
@@ -78,7 +89,7 @@ $app->get("/brand/:idbrand", function($idbrand){
 
 	
 
-	$pagination = $brand->getProductsPage($page);
+	$pagination = $brand->getProductsPage($numPage);
 
 	$pages = [];
 
@@ -88,6 +99,12 @@ $app->get("/brand/:idbrand", function($idbrand){
 			'page'=>$i
 		]);
 	}
+
+	$back  = $numPage - 1;	
+
+	$next = $numPage + 1;
+	
+
 	
 	$page = new Page();
 
@@ -97,7 +114,11 @@ $app->get("/brand/:idbrand", function($idbrand){
 		'products'=>$pagination["data"],
 		'errorRate'=>Brand::getErrorRate(),
 		'SuccessRate'=>Brand::getSuccess(),
-		'pages'=>$pages
+		'pages'=>$pages,
+		'back'=>$back,
+		'next'=>$next,
+		'totalPage'=>$pagination['pages'],
+		"numPage"=>$numPage
 
 	]);
 
@@ -138,18 +159,51 @@ $app->post("/brand/:idbrand/:iduser/add", function($idbrand,$iduser){
 //--------------ROTA DA PÁGINAS DOS PRODUTOS----------------//
 
 $app->get('/products', function() {  
-	
 
-	$products = Product::listAll();   
+	$numPage = (isset($_GET['page'])) ? (int)$_GET['page'] : 1;
+	
+	$search = (isset($_GET['search'])) ? $_GET['search'] : "";
+
+	$products = new product();
+
+	if ($search != '') {
+
+		$pagination = $products->getSearch($search, $numPage);
+
+	}else{
+
+		$pagination = Product::getProductsPage($numPage);
+
+	}
+
+	$pages = [];
+
+	for ($i=1; $i <= $pagination['pages']; $i++) { 
+		array_push($pages, [
+			'link'=>'/products?page='.$i,
+			'page'=>$i,
+			'search'=>$search,
+		]);
+	}
+
+	$back  = $numPage - 1;	
+
+	$next = $numPage + 1;
 
 	$page = new Page(); 
 
-	$page->setTpl("products",[						  
-		"products"=>Product::checkList($products) 
-
+	$page->setTpl("products",[
+		"search"=>$search,
+		'products'=>$pagination["data"],
+		'pages'=>$pages,
+		'back'=>$back,
+		'next'=>$next,
+		'totalPage'=>$pagination['pages'],
+		"numPage"=>$numPage
 	]);
 
 });
+	
 
 //--------------ROTA DAS PÁGINAS DOS DETALHES DOS PRODUTOS----------------//
 
@@ -419,11 +473,11 @@ $app->post("/checkout", function(){
 	switch ((int)$_POST['payment-method']) {
 
 		case 1:
-		header("Location: /order/".$order->getidorder()."/pagseguro");
+		header("Location: /order/".$order->getidorder()."/mercadopago");
 		break;
 
 		case 2:
-		header("Location: /order/".$order->getidorder()."/paypal");
+		header("Location: /order/".$order->getidorder()."/picpay");
 		break;
 
 	}
@@ -713,19 +767,17 @@ $app->post("/profile", function(){
 
 });
 
-$app->get("/profile-avaliactions/:iduser", function($iduser){
+$app->get("/profile-avaliactions", function(){
 
 	User::verifyLogin(false);
 
 	$user = User::getFromSession();
 
-	$avaliactions = new Avaliaction();
 
 	$page = new Page();
 
 	$page->setTpl("profile-avaliactions", [
-		'user'=>$user->getValues(),
-		'avaliaction'=>$avaliactions->getAvaliactionsID($iduser),
+		'avaliaction'=>$user->getAvaliactions(),
 		'profileMsg'=>User::getSuccess(),
 		'profileError'=>User::getError()
 	]);
@@ -747,6 +799,42 @@ $app->get("/profile-avaliactions/:iduser/:idavaliaction/delete", function($iduse
 
 });
 
+$app->get("/profile/orders", function(){
 
+	User::verifyLogin(false);
+
+	$user = User::getFromSession();
+
+	$page = new Page();
+
+	$page->setTpl("profile-orders", [
+		'orders'=>$user->getOrders()
+	]);
+
+});
+
+$app->get("/profile/orders/:idorder", function($idorder){
+
+	User::verifyLogin(false);
+
+	$order = new Order();
+
+	$order->get((int)$idorder);
+
+	$cart = new Cart();
+
+	$cart->get((int)$order->getidcart());
+
+	$cart->getCalculateTotal();
+
+	$page = new Page();
+
+	$page->setTpl("profile-orders-detail", [
+		'order'=>$order->getValues(),
+		'cart'=>$cart->getValues(),
+		'products'=>$cart->getProducts()
+	]);	
+
+});
 
 ?>

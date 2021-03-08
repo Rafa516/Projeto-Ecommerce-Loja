@@ -32,6 +32,7 @@
               <input type="file" class="form-control-file" id="namephoto" name="namephoto[]"  multiple="multiple" required ><br>
               <div class="box box-widget">
                 <div  id="myWorkContent">
+                  <br>
 
                   <?php if( $photos["totalPhotos"] == 1 ){ ?>
 
@@ -49,7 +50,7 @@
 
                   <?php } ?>
 
-                
+               
                 </div>
               </div>
             </div>

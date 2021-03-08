@@ -5,7 +5,7 @@
    
     </div>
     <!-- Default to the left -->
-    <strong> &copy; 2020 ADM | Papelaria e Livraria</strong> 
+    <strong> &copy; 2021 - Papelaria e Livraria J.A</strong> 
   </footer>
 
   <!-- Control Sidebar -->

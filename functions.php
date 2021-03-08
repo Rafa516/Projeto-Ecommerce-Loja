@@ -6,6 +6,7 @@ use \Projeto\Model\Product;
 use \Projeto\Model\Category;
 use \Projeto\Model\Brand;
 use \Projeto\Model\Avaliaction;
+use \Projeto\Model\Order;
 
 	function formatPrice(float $vlprice)
 	{
@@ -353,6 +354,14 @@ use \Projeto\Model\Avaliaction;
 		$total = Avaliaction::avaliactionsTotal();
 
 	   return  $total['avaliactionsTotal'];
+
+	}
+
+	function totalOrders(){
+
+		$total = Order::total();
+
+	   return  $total['ordersTotal'];
 
 	}
 

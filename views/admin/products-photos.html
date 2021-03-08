@@ -32,6 +32,7 @@
               <input type="file" class="form-control-file" id="namephoto" name="namephoto[]"  multiple="multiple" required ><br>
               <div class="box box-widget">
                 <div  id="myWorkContent">
+                  <br>
 
                   {if="$photos.totalPhotos == 1"}
                    {loop="$images"}
@@ -42,7 +43,7 @@
                    <a href="/admin/products/{$value.idproduct}/delete/{$value.idphoto}" title="EXCLUIR IMAGEM" onclick="return confirm('Deseja realmente excluir esta imagem?')"> <img style="height: 15em;width: 15em" class="photo"id="image-preview" src="{$value.desphoto}" ></a>
                   {/loop}
                   {/if}
-                
+               
                 </div>
               </div>
             </div>

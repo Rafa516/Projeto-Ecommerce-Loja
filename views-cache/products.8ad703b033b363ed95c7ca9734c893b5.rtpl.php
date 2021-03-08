@@ -34,10 +34,11 @@
             </div>
 
             <div class="box-body no-padding">
+              <div class="table-responsive">
              <table class="table  table-hover table-bordered">
                  <thead style="background-color: #D8D8D8" >
                   <tr>
-                    
+                    <th ><center>Código</th>
                    <th ><center>Nome do Produto</th>
                     <th><center>Preço</th>
                  
@@ -51,7 +52,7 @@
                   <?php $counter1=-1;  if( isset($products) && ( is_array($products) || $products instanceof Traversable ) && sizeof($products) ) foreach( $products as $key1 => $value1 ){ $counter1++; ?>
 
                   <tr>
-                   
+                    <td><center><?php echo $value1["idproduct"]; ?></td>
                     <td><?php echo $value1["desproduct"]; ?></td>
                     <td><center>R$ <?php echo $value1["vlprice"]; ?></td>
                
@@ -70,6 +71,7 @@
 
                 </tbody>
               </table>
+            </div>
             </div>
             <!-- /.box-body -->
               <div class="box-footer clearfix">

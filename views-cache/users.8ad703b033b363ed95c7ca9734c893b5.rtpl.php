@@ -34,10 +34,11 @@
             </div>
 
             <div class="box-body no-padding">
+               <div class="table-responsive">
               <table class="table table-hover  table-bordered">
                 <thead style="background-color: #D8D8D8">
                   <tr >
-                
+                    <th><center>Código</th>
                     <th><center>Nome</th>
                     <th><center>E-mail</th>
                     <th><center>Login</th>
@@ -48,7 +49,7 @@
                 <tbody>
                   <?php $counter1=-1;  if( isset($users) && ( is_array($users) || $users instanceof Traversable ) && sizeof($users) ) foreach( $users as $key1 => $value1 ){ $counter1++; ?>
                   <tr>
-                    
+                    <td><center><?php echo $value1["iduser"]; ?></td>
                     <td><center><?php echo $value1["desperson"]; ?></td>
                     <td><center>  <?php echo $value1["desemail"]; ?></td>
                     <td><center><?php echo $value1["deslogin"]; ?></td/>
@@ -68,6 +69,7 @@
                 </tbody>
               </table>
             </div>
+            </div>
             <!-- /.box-body -->
               <div class="box-footer clearfix">
               <ul class="pagination pagination-sm no-margin pull-right">
@@ -75,7 +77,7 @@
                 <li><a href="<?php echo $value1["href"]; ?>"><?php echo $value1["text"]; ?></a></li>
                 <?php } ?>
               </ul>
-            </div>
+            </div>  
           </div>
   	</div>
   </div>
