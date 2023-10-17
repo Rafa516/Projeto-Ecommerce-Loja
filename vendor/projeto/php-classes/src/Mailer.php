@@ -15,7 +15,7 @@ use Rain\Tpl;
 class Mailer{
  
     const USERNAME = "suporteaplicacoes@gmail.com";
-    const PASSWORD = "khosmos28";
+    const PASSWORD = "";
     const NAME_FROM = "E-commerce";
  
  
